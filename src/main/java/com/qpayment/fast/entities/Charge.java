@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.time.Instant;
 import java.util.Objects;
 
+import com.qpayment.fast.entities.enums.ChargeStatus;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -22,9 +24,10 @@ public class Charge implements Serializable{
 	private Long id;
 	private String description;
 	private Double amount;
-	//private ChargeStatus status;
+	private Integer status;
 	private Instant moment;
 	private String paymentLink;
+	
 	
 	@ManyToOne
 	@JoinColumn(name = "client_id")
@@ -36,13 +39,14 @@ public class Charge implements Serializable{
 	}
 	
 
-	public Charge(Long id, String description, Double amount, Instant moment, String paymentLink, Client client) {
+	public Charge(Long id, String description, Double amount, Instant moment, String paymentLink, ChargeStatus status, Client client) {
 		super();
 		this.id = id;
 		this.description = description;
 		this.amount = amount;
 		this.moment = moment;
 		this.paymentLink = paymentLink;
+		setStatus(status);
 		this.client = client;
 	}
 
@@ -88,10 +92,20 @@ public class Charge implements Serializable{
 		this.paymentLink = paymentLink;
 	}
 	
-	
-
 	public Client getClient() {
 		return client;
+	}
+
+
+	public ChargeStatus getStatus() {
+		return ChargeStatus.valueOf(status);
+	}
+
+
+	public void setStatus(ChargeStatus status) {
+		if(status != null) {
+			this.status = status.getCode();
+		}	
 	}
 
 
