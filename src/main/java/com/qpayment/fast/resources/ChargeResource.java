@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.qpayment.fast.entities.Charge;
-import com.qpayment.fast.entities.Client;
 import com.qpayment.fast.services.ChargeService;
 
 

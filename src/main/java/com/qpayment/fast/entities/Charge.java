@@ -32,14 +32,17 @@ public class Charge implements Serializable{
 	@ManyToOne
 	@JoinColumn(name = "client_id")
 	private Client client;
-	
+
+	@ManyToOne
+	@JoinColumn(name = "host_id")
+	private Host host;
 	
 	public Charge() {
 		
 	}
 	
 
-	public Charge(Long id, String description, Double amount, Instant moment, String paymentLink, ChargeStatus status, Client client) {
+	public Charge(Long id, String description, Double amount, Instant moment, String paymentLink, ChargeStatus status, Client client, Host host) {
 		super();
 		this.id = id;
 		this.description = description;
@@ -48,6 +51,7 @@ public class Charge implements Serializable{
 		this.paymentLink = paymentLink;
 		setStatus(status);
 		this.client = client;
+		this.host = host;
 	}
 
 
@@ -94,6 +98,11 @@ public class Charge implements Serializable{
 	
 	public Client getClient() {
 		return client;
+	}
+
+
+	public Host getHost() {
+		return host;
 	}
 
 
