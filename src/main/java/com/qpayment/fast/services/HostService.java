@@ -32,4 +32,15 @@ public class HostService {
 		hostRepository.deleteById(id);
 	}
 	
+	public Host update(Long id, Host obj) {
+		Host entity = hostRepository.getReferenceById(id);
+		updateData(entity, obj);
+		return hostRepository.save(entity);
+	}
+
+	private void updateData(Host entity, Host obj) {
+		entity.setName(obj.getName());
+		entity.setEmail(obj.getEmail());
+		entity.setPassword(obj.getPassword());
+	}
 }
