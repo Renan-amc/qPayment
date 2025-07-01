@@ -27,4 +27,9 @@ public class HostService {
 	public Host insert(Host obj) {
 		return hostRepository.save(obj);
 	}
+	
+	public void delete(Long id) {
+		hostRepository.deleteById(id);
+	}
+	
 }
