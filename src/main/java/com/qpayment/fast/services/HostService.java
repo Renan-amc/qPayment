@@ -3,7 +3,6 @@ package com.qpayment.fast.services;
 import java.util.List;
 import java.util.Optional;
 
-import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
@@ -12,6 +11,8 @@ import com.qpayment.fast.entities.Host;
 import com.qpayment.fast.repositories.HostRepository;
 import com.qpayment.fast.services.exceptions.DataBaseException;
 import com.qpayment.fast.services.exceptions.ResourceNotFoundException;
+
+import jakarta.persistence.EntityNotFoundException;
 
 @Service
 public class HostService {
@@ -44,9 +45,13 @@ public class HostService {
 	}
 	
 	public Host update(Long id, Host obj) {
-		Host entity = hostRepository.getReferenceById(id);
-		updateData(entity, obj);
-		return hostRepository.save(entity);
+		try {
+			Host entity = hostRepository.getReferenceById(id);
+			updateData(entity, obj);
+			return hostRepository.save(entity);
+		} catch (EntityNotFoundException e) {
+			throw new ResourceNotFoundException(id);
+		}
 	}
 
 	private void updateData(Host entity, Host obj) {
