@@ -24,4 +24,8 @@ public class ClientService {
 		Optional<Client> obj = repository.findById(id);
 		return obj.orElseThrow(() -> new ResourceNotFoundException(id));
 	}
+	
+	public Client insert(Client obj) {
+		return repository.save(obj);
+	}
 }
