@@ -3,11 +3,14 @@ package com.qpayment.fast.services;
 import java.util.List;
 import java.util.Optional;
 
+import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import com.qpayment.fast.entities.Host;
 import com.qpayment.fast.repositories.HostRepository;
+import com.qpayment.fast.services.exceptions.DataBaseException;
 import com.qpayment.fast.services.exceptions.ResourceNotFoundException;
 
 @Service
@@ -30,7 +33,14 @@ public class HostService {
 	}
 	
 	public void delete(Long id) {
-		hostRepository.deleteById(id);
+		if(!hostRepository.existsById(id)) {
+			throw new ResourceNotFoundException(id);
+		}
+		try {
+			hostRepository.deleteById(id);
+		} catch(DataIntegrityViolationException e ) {
+			throw new DataBaseException(e.getMessage());
+		}
 	}
 	
 	public Host update(Long id, Host obj) {

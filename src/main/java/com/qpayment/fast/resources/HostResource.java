@@ -32,7 +32,7 @@ public class HostResource {
 	}
 	
 	@GetMapping(value = "/{id}")
-	public ResponseEntity<Host> findById(@PathVariable long id) {
+	public ResponseEntity<Host> findById(@PathVariable Long id) {
 		Host host = hostService.findById(id);
 		return ResponseEntity.ok().body(host);
 	}
