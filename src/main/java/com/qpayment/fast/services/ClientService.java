@@ -28,4 +28,16 @@ public class ClientService {
 	public Client insert(Client obj) {
 		return repository.save(obj);
 	}
+	
+	public Client update(Long id, Client obj) {
+		Client entity = repository.getReferenceById(id);
+		updateData(entity, obj);
+		return repository.save(entity);
+	}
+
+	private void updateData(Client entity, Client obj) {
+		entity.setEmail(obj.getEmail());
+		entity.setName(obj.getName());
+		entity.setPassword(obj.getPassword());
+	}
 }
