@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.time.Instant;
 import java.util.Objects;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.qpayment.fast.entities.enums.ChargeStatus;
 
 import jakarta.persistence.Entity;
@@ -25,6 +26,8 @@ public class Charge implements Serializable{
 	private String description;
 	private Double amount;
 	private Integer status;
+	
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
 	private Instant moment;
 	private String paymentLink;
 	

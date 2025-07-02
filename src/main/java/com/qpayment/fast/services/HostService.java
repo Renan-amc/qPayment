@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.qpayment.fast.entities.Host;
 import com.qpayment.fast.repositories.HostRepository;
+import com.qpayment.fast.services.exceptions.ResourceNotFoundException;
 
 @Service
 public class HostService {
@@ -21,7 +22,7 @@ public class HostService {
 
 	public Host findById(Long id) {
 		Optional<Host> obj = hostRepository.findById(id);
-		return obj.get();
+		return obj.orElseThrow(() -> new ResourceNotFoundException(id));
 	}
 	
 	public Host insert(Host obj) {

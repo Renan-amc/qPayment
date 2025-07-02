@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.qpayment.fast.entities.Client;
 import com.qpayment.fast.repositories.ClientRepository;
+import com.qpayment.fast.services.exceptions.ResourceNotFoundException;
 
 @Service
 public class ClientService {
@@ -21,6 +22,6 @@ public class ClientService {
 	
 	public Client findById(Long id) {
 		Optional<Client> obj = repository.findById(id);
-		return obj.get();
+		return obj.orElseThrow(() -> new ResourceNotFoundException(id));
 	}
 }
