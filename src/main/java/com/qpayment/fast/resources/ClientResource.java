@@ -57,7 +57,7 @@ public class ClientResource {
 	
 	@PutMapping(value = "/{id}")
 	public ResponseEntity<Client> update(@PathVariable Long id, @RequestBody Client obj) {
-		obj = service.update(id, obj);
+		obj = service.update(id,  obj);
 		return ResponseEntity.ok().body(obj);
 	}
 }

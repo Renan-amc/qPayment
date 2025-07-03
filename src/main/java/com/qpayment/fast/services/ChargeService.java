@@ -24,4 +24,8 @@ public class ChargeService {
 		Optional<Charge> obj = repository.findById(id);
 		return obj.orElseThrow(() -> new ResourceNotFoundException(id));
 	}
+	
+	public Charge insert(Charge obj) {
+		return repository.save(obj);
+	}
 }

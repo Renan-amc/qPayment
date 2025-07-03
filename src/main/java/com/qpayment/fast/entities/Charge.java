@@ -31,7 +31,6 @@ public class Charge implements Serializable{
 	private Instant moment;
 	private String paymentLink;
 	
-	
 	@ManyToOne
 	@JoinColumn(name = "client_id")
 	private Client client;
@@ -56,8 +55,6 @@ public class Charge implements Serializable{
 		this.client = client;
 		this.host = host;
 	}
-
-
 
 	public Long getId() {
 		return id;

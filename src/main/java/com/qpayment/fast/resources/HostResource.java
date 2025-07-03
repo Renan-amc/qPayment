@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.qpayment.fast.entities.Host;
+import com.qpayment.fast.entities.DTO.HostRequestDTO;
+import com.qpayment.fast.entities.DTO.HostResponseDTO;
 import com.qpayment.fast.services.HostService;
 
 @RestController
@@ -26,19 +28,19 @@ public class HostResource {
 	private HostService hostService;
 	
 	@GetMapping
-	public ResponseEntity<List<Host>> listAll() {
-		List<Host> list = hostService.findAll();
+	public ResponseEntity<List<HostResponseDTO>> listAll() {
+		List<HostResponseDTO> list = hostService.findAll();
 		return ResponseEntity.ok().body(list);
 	}
 	
-	@GetMapping(value = "/{id}")
-	public ResponseEntity<Host> findById(@PathVariable Long id) {
-		Host host = hostService.findById(id);
+	@GetMapping(value = "{id}")   
+	public ResponseEntity<HostResponseDTO> findByIdDTO(@PathVariable Long id) {
+		HostResponseDTO host = hostService.findById(id);
 		return ResponseEntity.ok().body(host);
 	}
 	
 	@PostMapping
-	public ResponseEntity<Host> insert(@RequestBody Host obj) {
+	public ResponseEntity<HostRequestDTO> insert(@RequestBody HostRequestDTO obj) {
 		obj = hostService.insert(obj);
 		URI uri = ServletUriComponentsBuilder
 				.fromCurrentRequest()

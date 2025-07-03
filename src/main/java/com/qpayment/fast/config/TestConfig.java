@@ -33,14 +33,18 @@ public class TestConfig implements CommandLineRunner{
 	public void run(String... args) throws Exception {
 		Client c1 = new Client(null, "Renan", "renanmv10@hotmail.com", "renan123");
 		Client c2 = new Client(null, "Joana", "joana1@gmail.com", "joana123");
-		
+
 		Host h1 = new Host(null, "Claudio", "claudio@gmail.com", "claudio123");
+		Host h2 = new Host(null, "Roberto", "roberto@gmail.com", "roberto123");
 		
 		Charge ch1 = new Charge(null, "Pagamento Renan", 120.0, Instant.now(), "localhost:8080/link1", ChargeStatus.PAID, c2, h1);
 		Charge ch2 = new Charge(null, "Pagamento Joana", 150.0, Instant.now(), "localhost:8080/link2", ChargeStatus.WAITING_PAYMENT , c1, h1);
+		Charge ch3 = new Charge(null, "Pagamento Luana", 100.0, Instant.now(), "localhost:8080/link3", ChargeStatus.PAID , c2, h2);
+
+		
 		
 		clientRepository.saveAll(Arrays.asList(c1, c2));
-		hostRepository.saveAll(Arrays.asList(h1));
-		chargeRepository.saveAll(Arrays.asList(ch1, ch2));
+		hostRepository.saveAll(Arrays.asList(h1, h2));
+		chargeRepository.saveAll(Arrays.asList(ch1, ch2, ch3));
 	}
 }
