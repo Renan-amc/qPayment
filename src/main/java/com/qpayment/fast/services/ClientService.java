@@ -55,17 +55,17 @@ public class ClientService {
 		}
 	}
 	
-	public Client update(Long id, Client obj) {
+	public ClientResponseDTO update(Long id, ClientRequestDTO obj) {
 		try {
 			Client entity = repository.getReferenceById(id);
 			updateData(entity, obj);
-			return repository.save(entity);
+			return new ClientResponseDTO(repository.save(entity));
 		} catch (EntityNotFoundException e) {
 			throw new ResourceNotFoundException(id);
 		}
 	}
 
-	private void updateData(Client entity, Client obj) {
+	private void updateData(Client entity, ClientRequestDTO obj) {
 		entity.setEmail(obj.getEmail());
 		entity.setName(obj.getName());
 		entity.setPassword(obj.getPassword());

@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.qpayment.fast.entities.Client;
 import com.qpayment.fast.entities.DTO.ClientRequestDTO;
 import com.qpayment.fast.entities.DTO.ClientResponseDTO;
 import com.qpayment.fast.services.ClientService;
@@ -58,8 +57,8 @@ public class ClientResource {
 	}
 	
 	@PutMapping(value = "/{id}")
-	public ResponseEntity<Client> update(@PathVariable Long id, @RequestBody Client obj) {
-		obj = service.update(id,  obj);
-		return ResponseEntity.ok().body(obj);
+	public ResponseEntity<ClientResponseDTO> update(@PathVariable Long id, @RequestBody ClientRequestDTO obj) {
+		ClientResponseDTO entity = service.update(id,  obj);
+		return ResponseEntity.ok().body(entity);
 	}
 }
