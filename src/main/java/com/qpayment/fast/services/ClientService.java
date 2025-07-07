@@ -1,5 +1,6 @@
 package com.qpayment.fast.services;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -8,6 +9,8 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import com.qpayment.fast.entities.Client;
+import com.qpayment.fast.entities.DTO.ClientRequestDTO;
+import com.qpayment.fast.entities.DTO.ClientResponseDTO;
 import com.qpayment.fast.repositories.ClientRepository;
 import com.qpayment.fast.services.exceptions.DataBaseException;
 import com.qpayment.fast.services.exceptions.ResourceNotFoundException;
@@ -20,17 +23,25 @@ public class ClientService {
 	@Autowired
 	private ClientRepository repository;
 	
-	public List<Client> findAll() {
-		return repository.findAll();
+	public List<ClientResponseDTO> findAll() {
+		List<Client> listClient = repository.findAll();
+		List<ClientResponseDTO> listClientDTO = new ArrayList<>();
+		for(Client c : listClient) {
+			listClientDTO.add(new ClientResponseDTO(c));
+		}
+		return listClientDTO;
 	}
 	
-	public Client findById(Long id) {
+	public ClientResponseDTO findById(Long id) {
 		Optional<Client> obj = repository.findById(id);
-		return obj.orElseThrow(() -> new ResourceNotFoundException(id));
+		Client client = obj.orElseThrow(() -> new ResourceNotFoundException(id));
+		return new ClientResponseDTO(client);
 	}
 	
-	public Client insert(Client obj) {
-		return repository.save(obj);
+	public ClientRequestDTO insert(ClientRequestDTO obj) {
+		Client client = new Client(obj);
+		client = repository.save(client);
+		return new ClientRequestDTO(client);
 	}
 	
 	public void delete(Long id) {

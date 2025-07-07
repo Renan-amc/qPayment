@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.qpayment.fast.entities.Client;
+import com.qpayment.fast.entities.DTO.ClientRequestDTO;
+import com.qpayment.fast.entities.DTO.ClientResponseDTO;
 import com.qpayment.fast.services.ClientService;
 
 @RestController
@@ -26,20 +28,20 @@ public class ClientResource {
 	private ClientService service;
 
 	@GetMapping
-	public ResponseEntity<List<Client>> findAll() {
-		List<Client> list = service.findAll();
+	public ResponseEntity<List<ClientResponseDTO>> findAll() {
+		List<ClientResponseDTO> list = service.findAll();
 		return ResponseEntity.ok().body(list);
 		
 	} 
 	
 	@GetMapping(value = "/{id}")
-	public ResponseEntity<Client> findById(@PathVariable Long id) {
-		Client obj = service.findById(id);
+	public ResponseEntity<ClientResponseDTO> findById(@PathVariable Long id) {
+		ClientResponseDTO obj = service.findById(id);
 		return ResponseEntity.ok().body(obj); 
 	}
 	
 	@PostMapping
-	public ResponseEntity<Client> insert(@RequestBody Client obj) {
+	public ResponseEntity<ClientRequestDTO> insert(@RequestBody ClientRequestDTO obj) {
 		obj = service.insert(obj);
 		URI uri = ServletUriComponentsBuilder
 				.fromCurrentRequest()

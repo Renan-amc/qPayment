@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Objects;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.qpayment.fast.entities.DTO.ClientRequestDTO;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -47,6 +48,13 @@ public class Client implements Serializable {
 		this.name = name;
 		this.email = email;
 		this.password = password;
+	}
+
+	public Client(ClientRequestDTO obj) {
+		setId(obj.getId());
+		setName(obj.getName());
+		setEmail(obj.getEmail());
+		setPassword(obj.getPassword());
 	}
 
 	public Long getId() {
