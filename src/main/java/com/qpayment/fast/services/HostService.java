@@ -55,17 +55,17 @@ public class HostService {
 		}
 	}
 	
-	public Host update(Long id, Host obj) {
+	public HostResponseDTO update(Long id, HostRequestDTO obj) {
 		try {
 			Host entity = hostRepository.getReferenceById(id);
 			updateData(entity, obj);
-			return hostRepository.save(entity);
+			return new HostResponseDTO(hostRepository.save(entity));
 		} catch (EntityNotFoundException e) {
 			throw new ResourceNotFoundException(id);
 		}
 	}
 
-	private void updateData(Host entity, Host obj) {
+	private void updateData(Host entity, HostRequestDTO obj) {
 		entity.setName(obj.getName());
 		entity.setEmail(obj.getEmail());
 		entity.setPassword(obj.getPassword());

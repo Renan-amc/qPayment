@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.qpayment.fast.entities.Host;
 import com.qpayment.fast.entities.DTO.HostRequestDTO;
 import com.qpayment.fast.entities.DTO.HostResponseDTO;
 import com.qpayment.fast.services.HostService;
@@ -58,9 +57,9 @@ public class HostResource {
 	}
 	
 	@PutMapping(value = "/{id}")
-	public ResponseEntity<Host> update(@PathVariable Long id, @RequestBody Host obj) {
-		obj = hostService.update(id, obj);
-		return ResponseEntity.ok().body(obj);
+	public ResponseEntity<HostResponseDTO> update(@PathVariable Long id, @RequestBody HostRequestDTO obj) {
+		HostResponseDTO entity = hostService.update(id, obj);
+		return ResponseEntity.ok().body(entity);
 	}
 	
 }
