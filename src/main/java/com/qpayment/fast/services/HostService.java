@@ -38,10 +38,19 @@ public class HostService {
 		return new HostResponseDTO(entity);
 	}
 	
+
+	/*Precisei Buscar no banco de dados pelo ID do HOST e retornar o HOST INTEIRO para poder obter no 
+	construtor do Charge que ao passar um ChargeRequestDTO(somente com a info do ID do cliente/host) eu pudesse ter a informação inteira*/
+	
+	//Basicamente o que eu quis fazer foi quando eu utilizar o metodo POST eu passase somente o id do client/host e com isso ele busque no banco de dados  ainformação inteira e consiga dar um POST no CHARGE com a info inteira dos CLIENT/HOST
+	public Host findByIdComplete(Long hostId) {
+		Optional<Host> obj = hostRepository.findById(hostId);
+		return obj.orElseThrow(() -> new ResourceNotFoundException(hostId));
+	}
+	
 	public HostRequestDTO insert(HostRequestDTO obj) {
 		Host host = new Host(obj);
-		host = hostRepository.save(host);
-		return new HostRequestDTO(host);
+		return new HostRequestDTO(hostRepository.save(host));
 	}
 	
 	public void delete(Long id) {
@@ -70,4 +79,5 @@ public class HostService {
 		entity.setEmail(obj.getEmail());
 		entity.setPassword(obj.getPassword());
 	}
+
 }

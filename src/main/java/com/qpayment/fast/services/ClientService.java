@@ -38,10 +38,18 @@ public class ClientService {
 		return new ClientResponseDTO(client);
 	}
 	
+	/*Precisei Buscar no banco de dados pelo ID do client e retornar o client inteiro para poder obter um 
+	construtor no Charge que ao passar um ChargeRequestDTO(somente com a info do ID do cliente/host) eu pudesse ter a informação inteira*/
+	
+	//Basicamente o que eu quis fazer foi quando eu utilizar o metodo POST eu passase somente o id do client/host e com isso ele busque no banco de dados  ainformação inteira e consiga dar um POST no CHARGE com a info inteira dos CLIENT/HOST
+	public Client findByIdComplete(Long clientId) {
+		Optional<Client> obj = repository.findById(clientId);
+		return obj.orElseThrow(() -> new ResourceNotFoundException(clientId));
+	}
+	
 	public ClientRequestDTO insert(ClientRequestDTO obj) {
 		Client client = new Client(obj);
-		client = repository.save(client);
-		return new ClientRequestDTO(client);
+		return new ClientRequestDTO(repository.save(client));
 	}
 	
 	public void delete(Long id) {
@@ -70,4 +78,5 @@ public class ClientService {
 		entity.setName(obj.getName());
 		entity.setPassword(obj.getPassword());
 	}
+
 }

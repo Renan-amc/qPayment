@@ -5,6 +5,7 @@ import java.time.Instant;
 import java.util.Objects;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.qpayment.fast.entities.DTO.ChargeRequestDTO;
 import com.qpayment.fast.entities.enums.ChargeStatus;
 
 import jakarta.persistence.Entity;
@@ -42,10 +43,8 @@ public class Charge implements Serializable{
 	public Charge() {
 		
 	}
-	
 
 	public Charge(Long id, String description, Double amount, Instant moment, String paymentLink, ChargeStatus status, Client client, Host host) {
-		super();
 		this.id = id;
 		this.description = description;
 		this.amount = amount;
@@ -55,7 +54,18 @@ public class Charge implements Serializable{
 		this.client = client;
 		this.host = host;
 	}
-
+	
+	public Charge(ChargeRequestDTO chargeDTO, Client client, Host host) {
+		this.id = chargeDTO.getId();
+		this.description = chargeDTO.getDescription();
+		this.amount = chargeDTO.getAmount();
+		this.moment = Instant.now();
+		this.paymentLink = chargeDTO.getPaymentLink();
+		this.status = chargeDTO.getStatus();
+		this.client = client;
+		this.host = host;
+	}
+	
 	public Long getId() {
 		return id;
 	}
@@ -106,10 +116,13 @@ public class Charge implements Serializable{
 	}
 
 
-	public ChargeStatus getStatus() {
+	public ChargeStatus getStatusValueOf() {
 		return ChargeStatus.valueOf(status);
 	}
-
+	
+	public Integer getStatus(){
+		return this.status;
+	}
 
 	public void setStatus(ChargeStatus status) {
 		if(status != null) {

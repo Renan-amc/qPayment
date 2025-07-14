@@ -13,7 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.qpayment.fast.entities.Charge;
+import com.qpayment.fast.entities.DTO.ChargeRequestDTO;
+import com.qpayment.fast.entities.DTO.ChargeResponseDTO;
 import com.qpayment.fast.services.ChargeService;
 
 
@@ -25,19 +26,19 @@ public class ChargeResource {
 	private ChargeService service;
 	
 	@GetMapping
-	public ResponseEntity<List<Charge>> findAll() {
-		List<Charge> list = service.findAll();
+	public ResponseEntity<List<ChargeResponseDTO>> findAll() {
+		List<ChargeResponseDTO> list = service.findAll();
 		return ResponseEntity.ok().body(list);
 	}
 	
 	@GetMapping(value = "/{id}")
-	public ResponseEntity<Charge> findById(@PathVariable Long id) {
-		Charge obj = service.findById(id);
+	public ResponseEntity<ChargeResponseDTO> findById(@PathVariable Long id) {
+		ChargeResponseDTO obj = service.findById(id);
 		return ResponseEntity.ok().body(obj); 
 	}
 	
 	@PostMapping
-	public ResponseEntity<Charge> insert(@RequestBody Charge obj) {
+	public ResponseEntity<ChargeRequestDTO> insert(@RequestBody ChargeRequestDTO obj) {
 		obj = service.insert(obj);
 		URI uri = ServletUriComponentsBuilder
 				.fromCurrentRequest()
